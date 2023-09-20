@@ -10,8 +10,13 @@ public class PerlinNoise : MonoBehaviour
 
     public float offsetX = 100f;
     public float offsetY = 100f;
+    public float newOffsetX = 100f;
+    public float newOffsetY = 100f;
 
     Coroutine coroutine;
+
+    float timeElapse = 0;
+    float lerpDuration = 1f;
 
     private void Start()
     {
@@ -26,14 +31,29 @@ public class PerlinNoise : MonoBehaviour
         //get/set terrrain data
         Terrain terrain = GetComponent<Terrain>();
         terrain.terrainData = GenerateTerrain(terrain.terrainData);
+
+        if (timeElapse < lerpDuration)
+        {
+            offsetX = Mathf.Lerp(offsetX, newOffsetX, timeElapse / lerpDuration);
+            offsetY = Mathf.Lerp(offsetY, newOffsetY, timeElapse / lerpDuration);
+            timeElapse += Time.deltaTime;
+        }
+        else if (timeElapse > lerpDuration)
+        {
+            timeElapse = 0;
+        }
+
+        //offsetX = 
+
     }
 
+    //set offset
     IEnumerator SetOffset()
     {
         while (true)
-        {
-            offsetX = Random.Range(0f, 9999f);
-            offsetY = Random.Range(0f, 9999f);
+        { 
+            newOffsetX = Random.Range(0, 9999f);
+            newOffsetY = Random.Range(0, 9999f);
 
             yield return new WaitForSeconds(1.5f);
         }
