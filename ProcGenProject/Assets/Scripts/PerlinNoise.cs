@@ -5,7 +5,7 @@ public class PerlinNoise : MonoBehaviour
 {
     public int width = 256;
     public int height = 256;
-    public int depth = 20;
+    public int depth = 10;
     public float scale = 20;
 
     public float offsetX = 100f;
